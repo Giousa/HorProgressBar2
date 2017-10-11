@@ -37,7 +37,9 @@ public class HProgressBar extends View {
     //进度条距上部高度
     private int barMarginTop = 80;
 
-
+    //绘制图形范围
+    private RectF mRectF1;
+    private RectF mRectF2;
 
     public HProgressBar(Context context) {
         this(context,null);
@@ -56,11 +58,48 @@ public class HProgressBar extends View {
         mPaintIn = new Paint();
         mPaintOut = new Paint();
         mPaintText = new Paint();
+
+        mRectF1 = new RectF(0, barMarginTop, mBarLength, size + barMarginTop);
+        mRectF2 = new RectF(0, barMarginTop, mPercent * mBarLength, size + barMarginTop);
     }
 
+    /**
+     * 此方法目的，是让wrap和match的适配不同，否则，不管是match_parent还是wrap_content，效果都一样的
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = 0;
+        int height = 0;
+        //设置宽度
+        int specMode = MeasureSpec.getMode(widthMeasureSpec);
+        int specSize = MeasureSpec.getSize(widthMeasureSpec);
+
+        switch (specMode) {
+            case MeasureSpec.EXACTLY:   //精准模式，包含指定大小和match_parent
+                width = getPaddingLeft() + getPaddingRight() + specSize;
+                break;
+            case MeasureSpec.AT_MOST:   //一般为wrap_content
+                width = getPaddingLeft() + getPaddingRight() + mBarLength;
+                break;
+        }
+
+        //设置高度
+        specMode = MeasureSpec.getMode(heightMeasureSpec);
+        specSize = MeasureSpec.getSize(heightMeasureSpec);
+        switch (specMode) {
+            case MeasureSpec.EXACTLY:
+                height = getPaddingTop() + getPaddingBottom() + specSize;
+                break;
+            case MeasureSpec.AT_MOST:
+                height = getPaddingTop() + getPaddingBottom() + textMarginTop + barMarginTop + size;
+                break;
+        }
+        setMeasuredDimension(width, height);
+
     }
 
     @Override
@@ -70,12 +109,12 @@ public class HProgressBar extends View {
         mPaintIn.setColor(Color.BLUE);
         mPaintIn.setAntiAlias(true);
         mPaintIn.setStrokeWidth(2);
-        canvas.drawRoundRect(new RectF(0,barMarginTop, mBarLength,size+barMarginTop),radian,radian, mPaintIn);
+        canvas.drawRoundRect(mRectF1,radian,radian, mPaintIn);
 
         mPaintOut.setColor(Color.GREEN);
         mPaintOut.setAntiAlias(true);
         mPaintOut.setStrokeWidth(2);
-        canvas.drawRoundRect(new RectF(0,barMarginTop, mPercent * mBarLength,size+barMarginTop),radian,radian, mPaintOut);
+        canvas.drawRoundRect(mRectF2,radian,radian, mPaintOut);
 
         mPaintText.setColor(Color.RED);
         mPaintText.setTextSize(40);
