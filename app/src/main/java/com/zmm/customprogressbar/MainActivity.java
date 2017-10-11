@@ -14,11 +14,6 @@ public class MainActivity extends AppCompatActivity {
         final HProgressBar hProgressBar = (HProgressBar) findViewById(R.id.h_progress_bar);
         SeekBar seekBar = (SeekBar) findViewById(R.id.seek_bar);
 
-        hProgressBar.setBarLength(800);
-        hProgressBar.setRadian(15);
-        hProgressBar.setSize(30);
-        hProgressBar.setTextMarginTop(50);
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {

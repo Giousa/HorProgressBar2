@@ -3,4 +3,4 @@
 
 展示图：
  
- ![image](https://github.com/Giousa/HorProgressBar2/blob/master/screenshot/progress.png)
+ ![image](https://github.com/Giousa/HorProgressBar2/blob/master/screenshot/progress2.png)

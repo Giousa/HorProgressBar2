@@ -32,7 +32,10 @@ public class HProgressBar extends View {
     //进度条尺寸
     private int size = 30;
     //字体距上部高度
-    private int textMarginTop = 60;
+    private int textMarginTop = 55;
+
+    //进度条距上部高度
+    private int barMarginTop = 80;
 
 
 
@@ -67,21 +70,26 @@ public class HProgressBar extends View {
         mPaintIn.setColor(Color.BLUE);
         mPaintIn.setAntiAlias(true);
         mPaintIn.setStrokeWidth(2);
-        canvas.drawRoundRect(new RectF(0,0, mBarLength,size),radian,radian, mPaintIn);
+        canvas.drawRoundRect(new RectF(0,barMarginTop, mBarLength,size+barMarginTop),radian,radian, mPaintIn);
 
         mPaintOut.setColor(Color.GREEN);
         mPaintOut.setAntiAlias(true);
         mPaintOut.setStrokeWidth(2);
-        canvas.drawRoundRect(new RectF(0,0, mPercent * mBarLength,size),radian,radian, mPaintOut);
+        canvas.drawRoundRect(new RectF(0,barMarginTop, mPercent * mBarLength,size+barMarginTop),radian,radian, mPaintOut);
 
         mPaintText.setColor(Color.RED);
-        mPaintText.setTextSize(20);
+        mPaintText.setTextSize(40);
         mPaintText.setAntiAlias(true);
-        canvas.drawText("0",0,textMarginTop,mPaintText);
-        canvas.drawText("12",0.12f* mBarLength,textMarginTop,mPaintText);
-        canvas.drawText("32",0.32f*mBarLength,textMarginTop,mPaintText);
-        canvas.drawText("67",0.67f*mBarLength,textMarginTop,mPaintText);
-        canvas.drawText("100",mBarLength,textMarginTop,mPaintText);
+
+        canvas.drawText("偏轻",0.20f* mBarLength,40,mPaintText);
+        canvas.drawText("健康",0.50f*mBarLength,40,mPaintText);
+        canvas.drawText("偏重",0.62f*mBarLength,40,mPaintText);
+        canvas.drawText("超重",0.80f*mBarLength,40,mPaintText);
+
+        mPaintText.setTextSize(20);
+        canvas.drawText("18.5",0.46f* mBarLength,textMarginTop+barMarginTop,mPaintText);
+        canvas.drawText("24",0.60f*mBarLength,textMarginTop+barMarginTop,mPaintText);
+        canvas.drawText("28",0.70f*mBarLength,textMarginTop+barMarginTop,mPaintText);
 
 
     }
