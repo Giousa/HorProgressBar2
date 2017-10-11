@@ -60,7 +60,6 @@ public class HProgressBar extends View {
         mPaintText = new Paint();
 
         mRectF1 = new RectF(0, barMarginTop, mBarLength, size + barMarginTop);
-        mRectF2 = new RectF(0, barMarginTop, mPercent * mBarLength, size + barMarginTop);
     }
 
     /**
@@ -111,6 +110,7 @@ public class HProgressBar extends View {
         mPaintIn.setStrokeWidth(2);
         canvas.drawRoundRect(mRectF1,radian,radian, mPaintIn);
 
+        mRectF2 = new RectF(0, barMarginTop, mPercent * mBarLength, size + barMarginTop);
         mPaintOut.setColor(Color.GREEN);
         mPaintOut.setAntiAlias(true);
         mPaintOut.setStrokeWidth(2);
